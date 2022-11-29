@@ -4,31 +4,31 @@ Create self signed certificate on localhost Ubuntu
 ## 0. Change path to yours in ssl.sh
 
 ## 1. Run SSL
-`./ssl.sh local-domain.local`
+`./ssl.sh my-domain.local`
 
 ## 2. Go to 
-`/etc/apache2/sites-available/local-domain.local.conf` 
+`/etc/apache2/sites-available/my-domain.local.conf` 
 add:
 ```
 <VirtualHost *:443>
 	ServerAdmin webmaster@localhost
-	ServerName local-domain.local
-	ServerAlias local-domain.local
-	DocumentRoot /var/www/local-domain.local
+	ServerName my-domain.local
+	ServerAlias my-domain.local
+	DocumentRoot /var/www/my-domain.local
 	<Directory />
 		AllowOverride All
 	</Directory>
-	<Directory /var/www/local-domain.local>
+	<Directory /var/www/my-domain.local>
 		Options Indexes FollowSymLinks MultiViews
 		AllowOverride all
 		Require all granted
 	</Directory>
-	ErrorLog /var/log/apache2/local-domain.local-error.log
+	ErrorLog /var/log/apache2/my-domain.local-error.log
 	LogLevel error
-	CustomLog /var/log/apache2/local-domain.local-access.log combined
+	CustomLog /var/log/apache2/my-domain.local-access.log combined
 	SSLEngine on
-	SSLCertificateFile /home/ak/http_certs/local-domain.local/local-domain.local.crt
-	SSLCertificateKeyFile /home/ak/http_certs/local-domain.local/local-domain.local.key
+	SSLCertificateFile /home/ak/http_certs/my-domain.local/my-domain.local.crt
+	SSLCertificateKeyFile /home/ak/http_certs/my-domain.local/my-domain.local.key
 </VirtualHost>
 ```
 
