@@ -5,12 +5,12 @@ NAME=$1 # Use your own domain name
 DOMAIN_DIR=$BASE_DIR$1
 
 
-if [ -d $DOMAIN_DIR ]
+if [ -d "$DOMAIN_DIR" ]
 then
-    rm -rf $DOMAIN_DIR
+    rm -rf "$DOMAIN_DIR"
 fi
 
-mkdir $DOMAIN_DIR
+mkdir "$DOMAIN_DIR"
 
 function print_message(){
   echo $1
@@ -21,17 +21,18 @@ function print_message(){
 ######################
 
 print_message "Generate private key $LINENO"
-openssl genrsa -out $1/myCA.key 2048
+
+openssl genrsa -out "$DOMAIN_DIR/myCA.key" 2048
 
 print_message "Generate root certificate $LINENO"
-openssl req -x509 -new -nodes -key $DOMAIN_DIR/myCA.key -sha256 -days 825 -out $DOMAIN_DIR/myCA.pem -subj "/C=UA/ST=Kiev/L=Kiev/O=Global Security/OU=IT Department/CN=$1"
+openssl req -x509 -new -nodes -key "$DOMAIN_DIR/myCA.key" -sha256 -days 825 -out "$DOMAIN_DIR/myCA.pem" -subj "/C=UA/ST=Kiev/L=Kiev/O=Global Security/OU=IT Department/CN=$1"
 
 ######################
 # Create CA-signed certs
 ######################
 
 print_message "Generate a private key $LINENO"
-openssl genrsa -out $DOMAIN_DIR/$NAME.key 2048
+openssl genrsa -out "$DOMAIN_DIR/$NAME.key" 2048
 
 print_message "Create a certificate-signing request $LINENO"
 openssl req -new -key $DOMAIN_DIR/$NAME.key -out $DOMAIN_DIR/$NAME.csr -subj "/C=UA/ST=Kiev/L=Kiev/O=Global Security/OU=IT Department/CN=$1"
