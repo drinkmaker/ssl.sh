@@ -1,6 +1,13 @@
 #!/bin/bash
 
-BASE_DIR='/home/ak/http_certs/' # Cnahge to your path
+BASE_DIR='/home/ak/http_certs/' # Change to your path where you want to store the certs
+
+# Check if we have an argument
+if [ $# -ne 1 ]; then
+    printf "Error: Please provide a domain name as an argument.\nUsage: %s <domain_name>\n" "$0"
+    exit 1
+fi
+
 NAME=$1 # Use your own domain name
 DOMAIN_DIR=$BASE_DIR$1
 
